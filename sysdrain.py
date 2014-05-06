@@ -308,6 +308,9 @@ while ( True ):
     moved_hosts.add(current_donor)
 
   if ping_is_enabled:
+    current_donor_name_fqdn = current_donor_name
+    if current_donor_name.find('.') != -1:
+      current_donor_name_fqdn += "." + hvhn_suffix
     pingurl = pingurl_base + "/ping.php?hostname=" + urllib.quote(current_donor_name)
     try:
       ping_result = urllib2.urlopen(pingurl).read()
