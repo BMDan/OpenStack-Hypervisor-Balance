@@ -37,12 +37,16 @@ sleep_between_hosts_time = 10
 # will not be moved, and a host that is unpingable after being moved will cause the
 # entire script to halt.  The ping API is hilariously simple; the output should be
 # the text "yes" in case of success, or anything else otherwise.  In our case, we
-# put it behind HTTP Basic (i.e. htpasswd) authentication.
-ping_is_enabled = False
+# put it behind HTTP Basic (i.e. htpasswd) authentication.  Actually a tristate;
+# it can be False or None up here, and then we test to see whether we have the
+# requisite information to change it to True, below.  False disables ping,
+# regardless.
+ping_is_enabled = None
 
 #### End of configurable parameters ###
 
-if ping_is_enabled:
+if ping_is_enabled is not False and os.environ.get('SYSDRAIN_PINGURL_BASE') is not None:
+  ping_is_enabled = True
   pingurl_username = os.environ.get('SYSDRAIN_PINGURL_USERNAME')
   pingurl_password = os.environ.get('SYSDRAIN_PINGURL_PASSWORD')
   pingurl_base = os.environ.get('SYSDRAIN_PINGURL_BASE')
