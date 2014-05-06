@@ -309,8 +309,8 @@ while ( True ):
 
   if ping_is_enabled:
     current_donor_name_fqdn = current_donor_name
-    if current_donor_name.find('.') != -1:
-      current_donor_name_fqdn += "." + hvhn_suffix
+    if current_donor_name.find('.') == -1:
+      current_donor_name_fqdn += hvhn_suffix
     pingurl = pingurl_base + "/ping.php?hostname=" + urllib.quote(current_donor_name_fqdn)
     try:
       ping_result = urllib2.urlopen(pingurl).read()
@@ -364,8 +364,8 @@ while ( True ):
       ping_result = "fail"
 
     if ping_result != "yes":
-      print "EMERGENCY!  " + current_donor_name + " is not pingable post-migration.  Stopping script.  FIX THIS!"
+      print "EMERGENCY!  " + current_donor_name_fqdn + " is not pingable post-migration.  Stopping script.  FIX THIS!"
       exit(1)
       #TODO: Make this die even more loudly.  (Email?  Growl notification?)
     else:
-      print "Non-destructive operation confirmed; " + current_donor_name + " is still pingable."
+      print "Non-destructive operation confirmed; " + current_donor_name_fqdn + " is still pingable."
