@@ -311,16 +311,16 @@ while ( True ):
     current_donor_name_fqdn = current_donor_name
     if current_donor_name.find('.') != -1:
       current_donor_name_fqdn += "." + hvhn_suffix
-    pingurl = pingurl_base + "/ping.php?hostname=" + urllib.quote(current_donor_name)
+    pingurl = pingurl_base + "/ping.php?hostname=" + urllib.quote(current_donor_name_fqdn)
     try:
       ping_result = urllib2.urlopen(pingurl).read()
     except:
       ping_result = "fail"
 
     if ping_result != "yes":
-      print "Failed to ping " + current_donor_name + " prior to beginning migration."
+      print "Failed to ping " + current_donor_name_fqdn + " prior to beginning migration."
       if draining_hv is not None:
-        print "Skipping " + current_donor_name + " due to failed pre-migration ping."
+        print "Skipping " + current_donor_name_fqdn + " due to failed pre-migration ping."
         continue
       print "Attempting migration anyway; disabling post-migration ping check."
 
