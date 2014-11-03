@@ -50,7 +50,7 @@ argparser = argparse.ArgumentParser(description='Move instances between OpenStac
 argparser.add_argument('-D', '--draining-hypervisor', nargs=1, default=None, help='Specify a particular hypervisor from which to drain all instances')
 args = argparser.parse_args()
 if args.draining_hypervisor:
-  draining_hv = args.draining_hypervisor
+  draining_hv = args.draining_hypervisor[0]
 
 if ping_is_enabled is not False and os.environ.get('SYSDRAIN_PINGURL_BASE') is not None:
   ping_is_enabled = True
