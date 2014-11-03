@@ -6,6 +6,7 @@ import time
 import re
 import urllib
 import urllib2
+import argparse
 
 # On many of our clouds, the "host" attribute differs from the
 # "hypervisor_hostname" attribute in that it lacks the domain part of the FQDN.
@@ -44,6 +45,12 @@ sleep_between_hosts_time = 10
 ping_is_enabled = None
 
 #### End of configurable parameters ###
+
+argparser = argparse.ArgumentParser(description='Move instances between OpenStack hypervisors')
+argparser.add_argument('-D', '--draining-hypervisor', nargs=1, default=None, help='Specify a particular hypervisor from which to drain all instances')
+args = argparser.parse_args()
+if args.draining_hypervisor:
+  draining_hv = args.draining_hypervisor
 
 if ping_is_enabled is not False and os.environ.get('SYSDRAIN_PINGURL_BASE') is not None:
   ping_is_enabled = True
