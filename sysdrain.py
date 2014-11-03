@@ -151,7 +151,7 @@ while ( True ):
       continue
   
     if ( server_host + hvhn_suffix != server_hvhn ):
-      print "Skipping '" + server_name + "' [" + server_uuid + "] due to HVHN<->Host mismatch (" + server_host + " != " + server_hvhn + ")."
+      print "Skipping '" + server_name + "' [" + server_uuid + "] due to HVHN<->Host mismatch (" + server_host + hvhn_suffix + " != " + server_hvhn + ")."
       continue
   
     flavor = nova.flavors.get(server_flavor)
