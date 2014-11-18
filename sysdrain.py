@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 import sys
 import keystoneclient.v2_0.client as ksclient
